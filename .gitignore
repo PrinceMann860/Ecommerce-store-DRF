@@ -1,0 +1,86 @@
+# Django / Python
+*.pyc
+*.pyo
+*.mo
+*.db
+*.sqlite3
+*.sqlite
+*.pot
+*.log
+__pycache__/
+local_settings.py
+.env
+.env.local
+.env.*.local
+.env.production
+.env.development
+.vscode/
+.idea/
+.DS_Store
+*.swp
+*.swo
+
+# Database migrations (except initial)
+*/migrations/*.py
+!*/migrations/__init__.py
+
+# Media and static files
+/media/*
+!/media/.gitkeep
+/static/*
+!/static/.gitkeep
+/staticfiles/
+
+# Coverage reports
+htmlcov/
+.coverage
+*.cover
+*.py,cover
+
+# Virtual environment
+venv/
+.venv/
+env/
+ENV/
+
+# Node / Vite
+node_modules/
+/dist/
+.temp/
+.cache/
+*.local
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Vite specific
+.env
+.env.*
+!.env.example
+
+# Build files
+/build/
+/.next/
+/.nuxt/
+/.output/
+
+# Cache
+.cache/
+*.tmp
+*.temp
+
+# System Files
+.DS_Store
+Thumbs.db
