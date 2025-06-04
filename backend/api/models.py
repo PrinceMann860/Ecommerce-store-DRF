@@ -10,6 +10,10 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2)
     stock = models.PositiveIntegerField()
     rating = models.DecimalField(max_digits=3, decimal_places=2, default=0.00)
+    waranty_period = models.CharField(max_length=50, blank=True, null=True)
+    size = models.CharField(max_length=20, blank=True, null=True)
+    color = models.CharField(max_length=20, blank=True, null=True)
+    brand = models.CharField(max_length=50, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
