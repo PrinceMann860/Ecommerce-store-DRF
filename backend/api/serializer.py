@@ -2,6 +2,7 @@ from .models import Product, User, Review, Order
 from rest_framework import serializers as drf_serializers
 
 class ProductSerializer(drf_serializers.ModelSerializer):
+    image = drf_serializers.ImageField(use_url=True)
     class Meta:
         model = Product
         fields = '__all__'  # Serialize all fields of the Product model

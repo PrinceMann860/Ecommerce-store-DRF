@@ -3,75 +3,82 @@ import Logo from '../../assets/logo 12.png';
 import { Link } from 'react-router-dom';
 
 const Admin = () => {
+    const [isLoading, setIsLoading] = useState(false);
     const [product, setProduct] = useState({
         title: '',
         price: '',
         discount: '',
         description: '',
         category: '',
-        imageLink: '', // State to handle the image link
+        image: null, // Changed from File to null
+        Waranty: '',
+        Stock: '',
+        brand: '',
+        color: '',
+        size: '',
     });
-    
-    // State to track submission status (e.g., success or error messages)
+
     const [statusMessage, setStatusMessage] = useState('');
 
-    // Handle input field changes
     const handleChange = (e) => {
         const { name, value } = e.target;
         setProduct({ ...product, [name]: value });
     };
-
+    const handleImageChange = (e) => {
+        if (e.target.files && e.target.files[0]) {
+            setProduct({ ...product, image: e.target.files[0] });
+        }
+    };
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setIsLoading(true);
 
-        // Generate random unique ID as a string
-        const id = Math.floor(Math.random() * 1000000).toString();
+        // Validate required fields
+        if (!product.title || !product.price || !product.Stock || !product.image) {
+            setStatusMessage('Please fill all required fields');
+            setIsLoading(true);
+            return;
+        }
 
-        // Generate random rating
+        const formData = new FormData();
+        // Required fields
+        formData.append('name', product.title);
+        formData.append('price', product.price);
+        formData.append('stock', product.Stock);  // Note: lowercase 'stock' to match error
+        formData.append('image', product.image);
+
+        // Optional fields
+        if (product.discount) formData.append('discount', product.discount);
+        if (product.description) formData.append('description', product.description);
+        if (product.category) formData.append('category', product.category);
+        if (product.Waranty) formData.append('waranty_period', product.Waranty);
+        if (product.brand) formData.append('brand', product.brand);
+        if (product.color) formData.append('color', product.color);
+        if (product.size) formData.append('size', product.size);
+
+        // Add rating with validation
         const rating = {
-            rate: (Math.random() * 5).toFixed(1),
-            count: Math.floor(Math.random() * 500) + 1,
+            rate: parseFloat((Math.random() * 5).toFixed(1)) || 0,
+            count: parseInt(Math.floor(Math.random() * 500) + 1) || 0
         };
-
-        // Create the product object
-        const newProduct = {
-            id,
-            title: product.title,
-            price: parseFloat(product.price),
-            discount: parseInt(product.discount),
-            description: product.description,
-            category: product.category,
-            image: product.imageLink,
-            rating,
-        };
+        formData.append('rating', JSON.stringify(rating));
 
         try {
-            const response = await fetch('http://localhost:3000/product', {
+            const response = await fetch('http://127.0.0.1:8000/api/product/', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(newProduct), // Send product data as JSON
+                body: formData
             });
 
             const result = await response.json();
 
-            if (response.ok) {
-                setStatusMessage('Product created successfully!');
-                // Reset the form fields
-                setProduct({
-                    title: '',
-                    price: '',
-                    discount: '',
-                    description: '',
-                    category: '',
-                    imageLink: '', // Reset the image link field
-                });
-            } else {
-                setStatusMessage(`Error: ${JSON.stringify(result.errors || result)}`);
-            }
+            if (!response.ok) throw new Error(result.message || 'Submission failed');
+
+            setStatusMessage('Product created successfully!');
+            // Reset form...
         } catch (error) {
-            setStatusMessage('Error creating product: ' + error.message);
+            setStatusMessage(`Error: ${error.message}`);
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -124,14 +131,27 @@ const Admin = () => {
                                 />
                             </div>
                             <div className="mb-4">
-                                <label htmlFor="imageLink" className="block text-lg mb-2">Product Image Link</label>
+                                <label htmlFor="image" className="block text-lg mb-2">Product Image</label>
                                 <input
                                     className="border border-black sm:w-80 h-10 px-3 rounded-md text-lg"
-                                    type="text"
-                                    name="imageLink"
-                                    placeholder="Enter Image Link"
-                                    value={product.imageLink}
+                                    type="file"
+                                    id="image"
+                                    name="image"
+                                    onChange={handleImageChange}
+                                    accept="image/*"
+                                    required
+                                />
+                            </div>
+                            <div className="mb-4">
+                                <label htmlFor="Stock" className="block text-lg mb-2">Stock</label>
+                                <input
+                                    className="border border-black sm:w-80 h-10 px-3 rounded-md text-lg"
+                                    type='number'
+                                    name="Stock"
+                                    placeholder="Enter stock"
+                                    value={product.Stock}
                                     onChange={handleChange}
+
                                 />
                             </div>
                         </div>
@@ -147,7 +167,51 @@ const Admin = () => {
                                     value={product.category}
                                     onChange={handleChange}
                                 />
-                            </div>                            
+                            </div>
+                            <div className="mb-4">
+                                <label htmlFor="Waranty" className="block text-lg mb-2">Product warranty (optional)</label>
+                                <input
+                                    className="border border-black sm:w-80 h-10 px-3 rounded-md text-lg"
+                                    type="text"
+                                    name="Waranty"
+                                    placeholder="Enter warranty period"
+                                    value={product.Waranty}
+                                    onChange={handleChange}
+                                />
+                            </div>
+                            <div className="mb-4">
+                                <label htmlFor="size" className="block text-lg mb-2">Product size (optional)</label>
+                                <input
+                                    className="border border-black sm:w-80 h-10 px-3 rounded-md text-lg"
+                                    type="text"
+                                    name="size"
+                                    placeholder="Enter size"
+                                    value={product.size}
+                                    onChange={handleChange}
+                                />
+                            </div>
+                            <div className="mb-4">
+                                <label htmlFor="color" className="block text-lg mb-2">Product color (optional)</label>
+                                <input
+                                    className="border border-black sm:w-80 h-10 px-3 rounded-md text-lg"
+                                    type="text"
+                                    name="color"
+                                    placeholder="Enter color"
+                                    value={product.color}
+                                    onChange={handleChange}
+                                />
+                            </div>
+                            <div className="mb-4">
+                                <label htmlFor="brand" className="block text-lg mb-2">Product brand (optional)</label>
+                                <input
+                                    className="border border-black sm:w-80 h-10 px-3 rounded-md text-lg"
+                                    type="text"
+                                    name="brand"
+                                    placeholder="Enter brand"
+                                    value={product.brand}
+                                    onChange={handleChange}
+                                />
+                            </div>
                         </div>
                     </div>
 
@@ -177,8 +241,9 @@ const Admin = () => {
                     <button
                         type="submit"
                         className="bg-amber-400 w-52 py-3 text-white rounded-2xl hover:bg-amber-600 transition duration-300"
+                        disabled={isLoading}
                     >
-                        Submit
+                        {isLoading ? 'Submitting...' : 'Submit'}
                     </button>
                 </form>
 

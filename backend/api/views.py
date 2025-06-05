@@ -24,8 +24,7 @@ def product(request):
     
     elif request.method == 'POST':
         try:
-            data = request.POST
-            serializer = ProductSerializer(data=data)
+            serializer = ProductSerializer(data=request.data)
             if serializer.is_valid():
                 serializer.save()
                 return JsonResponse(serializer.data, status=status.HTTP_201_CREATED)

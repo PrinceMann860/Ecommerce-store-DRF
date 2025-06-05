@@ -69,7 +69,7 @@ const Product = () => {
           {menProduct.map((value, index) => (
             <div key={index} className='lg:w-72 md:w-52 w-40 lg:h-auto flex-shrink-0'>
               <Link to={`/infopage/${value.id}`}>
-                <img src={value.image} alt="product-img" className='w-[100%] h-[40%] lg:h-[60%]' />
+                <img src={`http://127.0.0.1:8000${value.image}`} alt={value.name} className='w-[100%] h-[40%] lg:h-[60%] object-contain' />
                 <div className='px-2'>
                   <h2 className='font font-semibold text-xl'>{value.title}</h2>
 
@@ -86,7 +86,7 @@ const Product = () => {
             <div key={index} className='lg:w-72 md:w-52 w-40 lg:h-auto flex-shrink-0'>
               <Link to={`/infopage/${value.id}`}>
                 <img
-                  src={value.image}
+                  src={`http://127.0.0.1:8000${value.image}`}
                   alt={value.name}
                   className='w-[100%] h-[40%] lg:h-[60%] object-contain'
                 />
@@ -104,9 +104,9 @@ const Product = () => {
           {womenProduct.map((value, index) => (
             <div key={index} className='lg:w-72 md:w-52 w-40 lg:h-auto flex-shrink-0'>
               <Link to={`/infopage/${value.id}`}>
-                <img src={value.image} alt="product-img" className='w-[100%] h-[40%] lg:h-[60%]' />
+                <img src={`http://127.0.0.1:8000${value.image}`} alt={value.name} className='w-[100%] h-[40%] lg:h-[60%] object-contain' />
                 <div className='px-2'>
-                  <h2 className='font font-semibold text-xl'>{value.title}</h2>
+                  <h2 className='font font-semibold text-xl'>{value.name}</h2>
 
                   <div className='text-lg font-semibold'>${value.price} <p className='inline text-orange-400 font-medium'>({value.discount}% OFF)</p></div>
                 </div>
@@ -120,7 +120,7 @@ const Product = () => {
           {jeweleryProduct.map((value, index) => (
             <div key={index} className='lg:w-72 md:w-52 w-40 lg:h-auto flex-shrink-0'>
               <Link to={`/infopage/${value.id}`}>
-                <img src={value.image} alt="product-img" className='w-[100%] h-[40%] lg:h-[60%]' />
+                <img src={`http://127.0.0.1:8000${value.image}`} alt={value.name} className='w-[100%] h-[40%] lg:h-[60%] object-contain' />
                 <div className='px-2'>
                   <h2 className='font font-semibold text-xl'>{value.title}</h2>
 

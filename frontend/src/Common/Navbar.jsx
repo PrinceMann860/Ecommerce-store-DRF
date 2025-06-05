@@ -4,10 +4,11 @@ import { FaBars } from "react-icons/fa";
 import { MdOutlineShoppingCart } from "react-icons/md";
 import Logo from "../assets/logo 12.png";
 import { useAuth0 } from "@auth0/auth0-react";
+import DummyUser from "../assets/dummyuser.jpeg";
 
 export default function Navbar() {
   const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
-  
+
   const [isMenuOpen, setMenuOpen] = useState(false);
   const [isDropdownOpen, setDropdownOpen] = useState(false);
 
@@ -62,7 +63,11 @@ export default function Navbar() {
           {isAuthenticated ? (
             <div className="relative">
               <button onClick={toggleDropdown}>
-                <img src={user.picture} alt={user.name} className="rounded-full w-10 border-white border-2" />
+                <img
+                  src={user && user.picture ? user.picture : DummyUser}
+                  alt={user && user.name ? user.name : "User"}
+                  className="rounded-full w-10 border-white border-2"
+                />
               </button>
               {isDropdownOpen && (
                 <div className="absolute right-0 mt-2 w-60 mr-[-19px] bg-white rounded-md shadow-lg py-2 z-20">

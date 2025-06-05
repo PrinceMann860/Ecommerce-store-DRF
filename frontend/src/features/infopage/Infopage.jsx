@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { PiTruck } from "react-icons/pi";
 import { MdAttachMoney } from "react-icons/md";
 import { RiSecurePaymentLine } from "react-icons/ri";
-import { BsStarFill } from 'react-icons/bs';
+import { BsStarFill, BsStarHalf, BsStar } from 'react-icons/bs';
 import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
@@ -77,12 +77,24 @@ const Infopage = () => {
     <div className='m-0 p-0 max-w-screen'>
       <div className='block lg:flex min-w-screen'>
         <div className='w-full lg:w-1/2'>
-          <img src={productinfo.image} alt={productinfo.name} className='m-24 w-[60%] h-auto' />
+          <img src={`http://127.0.0.1:8000${productinfo.image}`} alt={productinfo.name} className='m-24 w-[60%] h-auto' />
         </div>
         <div className='text-left w-full lg:w-1/2 lg:m-10 p-10'>
           <h1 className='text-2xl font-bold mb-4'>{productinfo.name}</h1>
           <p className='mb-2'>{productinfo.description}</p>
-          <p className='mb-2'>Ratings {productinfo.rating}</p>
+          <p className='mb-2 flex items-center'>
+            Ratings&nbsp;
+            {[...Array(5)].map((_, i) => {
+              if (productinfo.rating >= i + 1) {
+                return <BsStarFill key={i} className="text-yellow-400" />;
+              } else if (productinfo.rating > i && productinfo.rating < i + 1) {
+                return <BsStarHalf key={i} className="text-yellow-400" />;
+              } else {
+                return <BsStar key={i} className="text-gray-300" />;
+              }
+            })}
+            <span className="ml-2 text-gray-600">({productinfo.rating})</span>
+          </p>
           <p className='mb-2'>{productinfo.category}</p>
           <span className='text-2xl'>
             <p className='inline text-red-600'>-{productinfo.discount}%</p>
@@ -102,7 +114,7 @@ const Infopage = () => {
           </div>
           <p className='mb-2'>Product warranty: {productinfo.waranty_period}</p>
           <p className='mb-2'>Shipping Information: Will be delivered with in a week</p>
-          <p className='mb-2' >Availability status: {productinfo.stock>= 1 ?  <span className='text-green-500'>In Stock</span> : <span className='text-red-500'>Out of stock</span>}</p>
+          <p className='mb-2' >Availability status: {productinfo.stock >= 1 ? <span className='text-green-500'>In Stock</span> : <span className='text-red-500'>Out of stock</span>}</p>
           <div className="mb-4">
             <label htmlFor="quantity" className="block text-lg font-medium">
               Quantity
