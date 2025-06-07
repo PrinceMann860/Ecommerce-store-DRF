@@ -15,6 +15,7 @@ const Infopage = () => {
   const [userInput, setUserInput] = useState(1);
   const dispatch = useDispatch();
 
+
   console.log("URL id:", id);
 
   useEffect(() => {
@@ -53,6 +54,15 @@ const Infopage = () => {
       console.error("Product information is not available.");
     }
   };
+
+  // display the date of 1 week after today
+  const deliveryDate = new Date();
+  deliveryDate.setDate(deliveryDate.getDate() + 7);
+  const deliveryDateString = deliveryDate.toLocaleDateString('en-IN', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
 
   // Handle quantity change and price calculation
   const handleChange = (e) => {
@@ -112,9 +122,15 @@ const Infopage = () => {
               <div className='text-center'><RiSecurePaymentLine size={40} className='mx-auto' />Secure Payments</div>
             </Link>
           </div>
-          <p className='mb-2'>Product warranty: {productinfo.waranty_period}</p>
-          <p className='mb-2'>Shipping Information: Will be delivered with in a week</p>
-          <p className='mb-2' >Availability status: {productinfo.stock >= 1 ? <span className='text-green-500'>In Stock</span> : <span className='text-red-500'>Out of stock</span>}</p>
+          <p className='mb-2'><span className='font-bold'>Product warranty: </span>{productinfo && productinfo.waranty_period ? productinfo.waranty_period : 'None'}</p>
+          <p className='mb-2'>
+            <span className='font-bold'>Shipping Information: </span>
+            Will be delivered by <span className="font-semibold">{deliveryDateString}</span>
+          </p>
+          <p className='mb-2'><span className='font-bold'>Color: </span>{productinfo && productinfo.color ? productinfo.color : 'Not Specified'}</p>
+          <p className='mb-2'><span className='font-bold'>Size: </span>{productinfo && productinfo.size ? productinfo.size : 'Regular'}</p>
+          <p className='mb-2'><span className='font-bold'>Brand: </span>{productinfo.brand}</p>
+          <p className='mb-2' ><span className='font-bold'>Availability status: </span>{productinfo.stock >= 1 ? <span className='text-green-500'>In Stock</span> : <span className='text-red-500'>Out of stock</span>}</p>
           <div className="mb-4">
             <label htmlFor="quantity" className="block text-lg font-medium">
               Quantity

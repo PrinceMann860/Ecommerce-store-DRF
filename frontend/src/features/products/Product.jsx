@@ -23,6 +23,8 @@ const Product = () => {
   }, []);
 
   const menProduct = product.filter(product => product.category === "men's clothing");
+  const Accessories = product.filter(product => product.category === "Accessories");
+  const FootWear = product.filter(product => product.category === "Foot-wear");
   const electronicProduct = product.filter(product => product.category === 'Electronics');
   const womenProduct = product.filter(product => product.category === "women's clothing");
   const jeweleryProduct = product.filter(product => product.category === 'jewelery');
@@ -71,7 +73,52 @@ const Product = () => {
               <Link to={`/infopage/${value.id}`}>
                 <img src={`http://127.0.0.1:8000${value.image}`} alt={value.name} className='w-[100%] h-[40%] lg:h-[60%] object-contain' />
                 <div className='px-2'>
-                  <h2 className='font font-semibold text-xl'>{value.title}</h2>
+                  <h2 className='font font-semibold text-xl'>{value.name}</h2>
+
+                  <div className='text-lg font-semibold'>${value.price} <p className='inline text-orange-400 font-medium'>({value.discount}% OFF)</p></div>
+                </div>
+              </Link>
+            </div>
+          ))}
+        </div>
+        <h2 className="text-left text-3xl font-semibold">Women's Products</h2>
+        <div className="mt-6 flex overflow-x-auto space-x-6">
+          {womenProduct.map((value, index) => (
+            <div key={index} className='lg:w-72 md:w-52 w-40 lg:h-auto flex-shrink-0'>
+              <Link to={`/infopage/${value.id}`}>
+                <img src={`http://127.0.0.1:8000${value.image}`} alt={value.name} className='w-[100%] h-[40%] lg:h-[60%] object-contain' />
+                <div className='px-2'>
+                  <h2 className='font font-semibold text-xl'>{value.name}</h2>
+
+                  <div className='text-lg font-semibold'>${value.price} <p className='inline text-orange-400 font-medium'>({value.discount}% OFF)</p></div>
+                </div>
+              </Link>
+            </div>
+          ))}
+        </div>
+        <h2 className="text-left text-3xl font-semibold">Accessories</h2>
+        <div className="mt-6 flex overflow-x-auto space-x-6">
+          {Accessories.map((value, index) => (
+            <div key={index} className='lg:w-72 md:w-52 w-40 lg:h-auto flex-shrink-0'>
+              <Link to={`/infopage/${value.id}`}>
+                <img src={`http://127.0.0.1:8000${value.image}`} alt={value.name} className='w-[100%] h-[40%] lg:h-[60%] object-contain' />
+                <div className='px-2'>
+                  <h2 className='font font-semibold text-xl'>{value.name}</h2>
+
+                  <div className='text-lg font-semibold'>${value.price} <p className='inline text-orange-400 font-medium'>({value.discount}% OFF)</p></div>
+                </div>
+              </Link>
+            </div>
+          ))}
+        </div>
+        <h2 className="text-left text-3xl font-semibold">Foot-wear (Both Man/Woman)</h2>
+        <div className="mt-6 flex overflow-x-auto space-x-6">
+          {FootWear.map((value, index) => (
+            <div key={index} className='lg:w-72 md:w-52 w-40 lg:h-auto flex-shrink-0'>
+              <Link to={`/infopage/${value.id}`}>
+                <img src={`http://127.0.0.1:8000${value.image}`} alt={value.name} className='w-[100%] h-[40%] lg:h-[60%] object-contain' />
+                <div className='px-2'>
+                  <h2 className='font font-semibold text-xl'>{value.name}</h2>
 
                   <div className='text-lg font-semibold'>${value.price} <p className='inline text-orange-400 font-medium'>({value.discount}% OFF)</p></div>
                 </div>
@@ -99,21 +146,6 @@ const Product = () => {
           ))}
         </div>
 
-        <h2 className="text-left text-3xl font-semibold">Women's Products</h2>
-        <div className="mt-6 flex overflow-x-auto space-x-6">
-          {womenProduct.map((value, index) => (
-            <div key={index} className='lg:w-72 md:w-52 w-40 lg:h-auto flex-shrink-0'>
-              <Link to={`/infopage/${value.id}`}>
-                <img src={`http://127.0.0.1:8000${value.image}`} alt={value.name} className='w-[100%] h-[40%] lg:h-[60%] object-contain' />
-                <div className='px-2'>
-                  <h2 className='font font-semibold text-xl'>{value.name}</h2>
-
-                  <div className='text-lg font-semibold'>${value.price} <p className='inline text-orange-400 font-medium'>({value.discount}% OFF)</p></div>
-                </div>
-              </Link>
-            </div>
-          ))}
-        </div>
 
         <h2 className="text-left text-3xl font-semibold">Jewelery Products</h2>
         <div className="mt-6 flex overflow-x-auto space-x-6">
@@ -122,7 +154,7 @@ const Product = () => {
               <Link to={`/infopage/${value.id}`}>
                 <img src={`http://127.0.0.1:8000${value.image}`} alt={value.name} className='w-[100%] h-[40%] lg:h-[60%] object-contain' />
                 <div className='px-2'>
-                  <h2 className='font font-semibold text-xl'>{value.title}</h2>
+                  <h2 className='font font-semibold text-xl'>{value.name}</h2>
 
                   <div className='text-lg font-semibold'>${value.price} <p className='inline text-orange-400 font-medium'>({value.discount}% OFF)</p></div>
                 </div>
