@@ -29,7 +29,7 @@ const Category = () => {
     <div className="bg-white">
       <div className="mx-auto px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
               <h1 className="text-left text-4xl my-10 font-bold">Products</h1>
-              <h2 className="text-left text-3xl font-semibold">Men's Products</h2>
+              <h2 className="text-left text-3xl font-semibold">Men's Clothing</h2>
               <div className="mt-6 flex overflow-x-auto space-x-6">
                 {menProduct.map((value, index) => (
                   <div key={index} className='lg:w-72 md:w-52 w-40 lg:h-auto flex-shrink-0'>
@@ -44,7 +44,7 @@ const Category = () => {
                   </div>
                 ))}
               </div>
-              <h2 className="text-left text-3xl font-semibold">Women's Products</h2>
+              <h2 className="text-left text-3xl font-semibold">Women's Clothing</h2>
               <div className="mt-6 flex overflow-x-auto space-x-6">
                 {womenProduct.map((value, index) => (
                   <div key={index} className='lg:w-72 md:w-52 w-40 lg:h-auto flex-shrink-0'>
